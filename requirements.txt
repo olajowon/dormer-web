@@ -1,0 +1,16 @@
+asgiref==3.2.10
+certifi==2020.11.8
+chardet==3.0.4
+concurrent-log-handler==0.9.19
+Django==2.2.10
+djangorestframework==3.12.2
+elasticsearch==7.6.0
+idna==2.10
+portalocker==2.0.0
+psycopg2==2.8.6
+pytz==2020.4
+requests==2.25.0
+sqlparse==0.4.1
+taos==2.0.0
+urllib3==1.26.1
+uWSGI==2.0.19.1

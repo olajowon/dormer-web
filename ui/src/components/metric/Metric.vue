@@ -1,0 +1,43 @@
+<template>
+  <b-row class="h-100">
+    <b-col cols="12" sm="5" md="3">
+      <MetricTree/>
+      <div class="d-none d-sm-block metric-tree-border"></div>
+    </b-col>
+    <b-col cols="12" sm="7" md="9" class="h-100" style="overflow: auto">
+      <MetricDash/>
+    </b-col>
+  </b-row>
+</template>
+
+<script>
+  import MetricTree from '@/components/metric/MetricTree'
+  import MetricDash from '@/components/metric/MetricDash'
+
+  export default {
+    name: 'Metric',
+    components: {
+      MetricTree: MetricTree,
+      MetricDash: MetricDash
+    },
+    data() {
+      return {
+      }
+    },
+    mounted() {
+
+    },
+
+    methods: {
+
+    }
+  }
+</script>
+<style>
+  .metric-tree-border {
+    height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+    position: absolute; right: 0px;
+    top: 0px
+  }
+</style>

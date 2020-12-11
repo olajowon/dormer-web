@@ -1,0 +1,16 @@
+*.pyc
+**.pyc
+*.DS_Store
+*.idea
+*/.DS_Store
+*/.idea
+**__pycache__
+**__pycache__/*
+env
+venv
+static/*
+!*/static
+templates/index.html
+configure/*
+!configure/__init__.py
+!configure/example.ini
