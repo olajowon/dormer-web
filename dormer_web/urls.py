@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from django.views.static import serve
 from .settings import STATICFILES_DIRS
 
@@ -24,4 +25,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('static/<path:path>', serve, {'document_root': STATICFILES_DIRS[0]}),
     path('api/v1/', include('app.urls')),
+    path('api/auth/', obtain_jwt_token),
+    path('api/isauth/', verify_jwt_token),
 ]

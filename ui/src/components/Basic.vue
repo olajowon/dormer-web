@@ -19,7 +19,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item-dropdown text="指标">
-            <b-dropdown-item v-for="(c, idx) in categories" :key="idx" :href="'/#/metric/?name='+ c.name">
+            <b-dropdown-item v-for="(c, idx) in categories" :key="idx" :href="'/#/metric/?name=' + c.name + '&leaf=0'">
               {{ c.name }}
             </b-dropdown-item>
           </b-nav-item-dropdown>

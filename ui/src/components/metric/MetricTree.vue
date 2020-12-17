@@ -31,9 +31,16 @@
 
     watch: {
       "$route.query": function (n, o) {
-        let node = this.tree.getNodeByParam('id', n.name)
-        if (node) {
-          this.tree.selectNode(node);
+        if (n.name != o.name) {
+          if (n.name.split(".")[0] == o.name.split(".")[0]) {
+            let node = this.tree.getNodeByParam('id', n.name)
+            if (node) {
+              this.tree.selectNode(node);
+            }
+          } else {
+            this.metricCategory = n.name.split(".")[0];
+            this.treeInit();
+          }
         }
       }
     },
@@ -41,10 +48,19 @@
     mounted() {
       let metricName = this.$route.query.name;
       this.metricCategory = metricName.split(".")[0];
-      this.tree = $.fn.zTree.init($("#metricTree"), this.setting, []);
+      this.treeInit();
+    },
+
+    beforeDestroy() {
+      this.tree && this.tree.destroy();
     },
 
     methods: {
+      treeInit() {
+        this.tree && this.tree.destroy();
+        this.tree = $.fn.zTree.init($("#metricTree"), this.setting, []);
+      },
+
       treeNodeBeforeClick(treeId, treeNode) {
         this.$router.push({
           query: this.merge(this.$route.query, {name: treeNode.id, leaf: treeNode.leaf, keyword: undefined})

@@ -62,7 +62,7 @@
           this.until = this.$route.query.until;
         } else {
           this.from = "-1h"
-          this.from = "now"
+          this.until = "now"
         }
       },
 

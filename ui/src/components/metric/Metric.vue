@@ -1,5 +1,5 @@
 <template>
-  <b-row class="h-100">
+  <b-row v-if="this.$route.query.name" class="h-100">
     <b-col cols="12" sm="5" md="3">
       <MetricTree/>
       <div class="d-none d-sm-block metric-tree-border"></div>
