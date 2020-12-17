@@ -32,8 +32,75 @@ Vue.prototype.qs = qs
 Vue.prototype.merge = merge
 Vue.prototype.utils = utils
 
+axios.interceptors.request.use(
+  config => {
+    let jwt = localStorage.getItem("jwt");
+    if(jwt){
+        config.headers.Authorization = jwt;
+    }
+
+    config.headers["X-CSRFToken"] = utils.getCookie("csrftoken")
+
+    if(config.method === 'get') {
+      config.paramsSerializer = function (params) {
+        return qs.stringify(params, {arrayFormat: 'repeat'})
+      }
+    }
+
+    return config
+},
+error => {
+    return Promise.reject(error);
+});
+
+
+axios.interceptors.response.use(
+  response => {
+      return response;
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          router.replace({
+            path: "/login/",
+          })
+      }
+    }
+
+    let title, message
+    if (error.response && error.response.data && error.response.data.msg) {
+      title = error.response.status
+      message = error.response.data.msg + ", " + (error.response.data.detail || "")
+    } else if (error.response && error.response.data) {
+      title = error.response.status
+      message = JSON.stringify(error.response.data)
+    } else if (error.response) {
+      title = error.response.status
+      message = error.response.statusText
+    } else {
+      title = "Error"
+      message = JSON.stringify(error)
+    }
+
+    if (error.response && error.response.config.url == "/api/auth/") {
+      if (error.response.status == 400) {
+        message = "请输入正确的用户名密码"
+      }
+    }
+
+    app.$bvToast.toast(message, {
+      title: title,
+      variant: "danger",
+      toaster: "b-toaster-top-center",
+      solid: true
+    })
+    return Promise.reject(error);
+  }
+);
+
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
   router,
   components: { App },

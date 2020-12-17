@@ -18,7 +18,10 @@
             url: "/api/v1/metric/metric_children/",
             type: "get",
             autoParam: ["id=name"],
-            dataFilter: this.treeNodeDataFilter
+            dataFilter: this.treeNodeDataFilter,
+            headers: {
+              Authorization: localStorage.getItem("jwt")
+            }
           },
           callback: {
             beforeClick: this.treeNodeBeforeClick,

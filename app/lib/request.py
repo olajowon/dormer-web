@@ -5,6 +5,7 @@ import traceback
 import logging
 logger = logging.getLogger('base')
 
+
 def with_request(auth=False, perm=None):
     def decorator(func):
         def wrapper(self, request, *args, **kwargs):

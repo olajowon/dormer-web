@@ -27,7 +27,7 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown text="用户" right>
-            <b-dropdown-item href="#">退出</b-dropdown-item>
+            <b-dropdown-item href="#" @click="logout">退出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -79,8 +79,16 @@
         .then(response => {
           this.categories = response.data.data.results;
         })
-
     },
+
+    methods: {
+      logout () {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("jwt");
+        this.$router.push("/login/");
+      }
+    }
   }
 </script>
 
