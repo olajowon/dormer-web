@@ -1,5 +1,5 @@
 # Created by zhouwang on 2020/11/13.
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .exception import ParamError, ForbiddenError, NotFoundError, FormError
 import traceback
 import logging
@@ -17,7 +17,11 @@ def with_request(auth=False, perm=None):
             # 检查权限
             if perm is None or request.user.has_perm(perm):
                 try:
-                    resp = JsonResponse({'data': func(self, request, *args, **kwargs)})
+                    ret = func(self, request, *args, **kwargs)
+                    if isinstance(ret, HttpResponse):
+                        resp = ret
+                    else:
+                        resp = JsonResponse({'data': func(self, request, *args, **kwargs)})
                 except ParamError as e:
                     resp = JsonResponse({'msg': '参数无效', 'detail': str(e.message), 'error': e.error}, status=400)
                 except FormError as e:

@@ -4,6 +4,7 @@ import configure
 
 
 class Metric:
+
     def get_metric_categories(self):
         body = {
             'query': {
@@ -62,10 +63,3 @@ class Metric:
             offsprings.append(metric['_source'])
         return {'results': offsprings}
 
-    def render(self, params):
-        params = {
-            'target': params.get('target'),
-            'from': params.get('from'),
-            'until': params.get('until')
-        }
-        return db.GraphiteApi().render(params)

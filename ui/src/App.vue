@@ -16,4 +16,12 @@ export default {
     #font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif, "Microsoft YaHei", "微软雅黑";
     -webkit-font-smoothing: antialiased;
   }
+
+  .col-form-label {
+    font-size: 0.875rem !important;
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+  }
 </style>

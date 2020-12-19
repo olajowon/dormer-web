@@ -20,10 +20,9 @@ class Elasticsearch:
 
 class GraphiteApi:
     def render(self, params):
-        params['format'] = 'json'
         resp = requests.post('%s/render' % configure.graphite_api['host'], data=params)
         resp.raise_for_status()
-        return resp.json()
+        return resp.headers, resp.content
 
 
 # class TDengine:

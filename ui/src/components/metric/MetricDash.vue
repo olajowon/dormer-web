@@ -97,11 +97,11 @@
 </script>
 <style>
   .metric-card {
-    margin-bottom: 15px;
+    margin-bottom: 0.875rem;
   }
 
   .metric-card .card-header {
-    font-size: 14px;
+    font-size: 0.875rem;
     padding: 0.45rem 0.95rem;
   }
 

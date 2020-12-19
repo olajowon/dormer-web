@@ -25,9 +25,9 @@
           from: this.from,
           until: this.until
         }
-        this.axios.get("/api/v1/metric/render/", {params: params})
+        this.axios.get("/api/v1/render/", {params: params})
           .then(response => {
-            let data = response.data.data;
+            let data = response.data;
 
             let series = []
             let min, max

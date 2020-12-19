@@ -23,10 +23,3 @@ class MetricOffsprings(APIView):
     def get(self, request, *args, **kwargs):
         data = Metric().get_metric_offsprings(request.query_params)
         return data
-
-
-class Render(APIView):
-    @with_request(auth=True)
-    def get(self, request, *args, **kwargs):
-        data = Metric().render(request.query_params)
-        return data

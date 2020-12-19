@@ -26,7 +26,10 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="用户" right>
+          <b-nav-item-dropdown right>
+            <template v-slot:button-content>
+              <i class="fa fa-user"></i>
+            </template>
             <b-dropdown-item href="#" @click="logout">退出</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
