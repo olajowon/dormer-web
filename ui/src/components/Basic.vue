@@ -106,4 +106,8 @@
     height: calc(100% - 76px);
     overflow: auto;
   }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: #fff !important;
+  }
 </style>

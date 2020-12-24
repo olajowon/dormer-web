@@ -20,8 +20,4 @@ export default {
   .col-form-label {
     font-size: 0.875rem !important;
   }
-
-  .navbar-dark .navbar-nav .nav-link {
-    color: #fff;
-  }
 </style>
