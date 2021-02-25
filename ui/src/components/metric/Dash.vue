@@ -3,12 +3,9 @@
     <b-col v-for="metric, idx in metrics" :key="metric.name" cols="12" sm="12" md="6">
       <b-card
         :header="metric.name"
-        class="metric-card"
+        class="card-sm metric-card"
       >
-        <MetricChart
-          v-bind:metric.sync="metric.name"
-          v-bind:from.sync="from"
-          v-bind:until.sync="until"
+        <Chart
           :ref="'metric-' + metric.name + '-chart'"/>
       </b-card>
     </b-col>
@@ -16,12 +13,12 @@
 </template>
 
 <script>
-  import MetricChart from '@/components/metric/MetricChart'
+  import Chart from '@/components/common/Chart'
 
   export default {
-    name: 'MetricDash',
+    name: 'Dash',
     components: {
-      MetricChart: MetricChart,
+      Chart: Chart,
     },
 
     data() {
@@ -30,6 +27,7 @@
         charts: [],
         from: null,
         until: null,
+        interval: null
       }
     },
 
@@ -37,32 +35,46 @@
       "$route.query": function (n, o) {
         if (n.name != o.name) {
           this.clearCharts();
-          this.setFromUntil();
+          this.makeFromUntil();
           this.$nextTick(() => {
             this.makeCharts();
           });
         } else if (n.from != o.from || n.until != o.until) {
-          this.setFromUntil();
-          this.$nextTick(() => {
-            this.refreshCharts();
-          });
+          this.makeFromUntil();
+          this.renderCharts();
+        } else if (n.refresh != o.refresh) {
+          this.makeInterval();
         }
       }
     },
 
     mounted() {
-      this.setFromUntil();
+      this.makeFromUntil();
       this.makeCharts();
+      this.makeInterval();
+    },
+
+    beforeDestroy() {
+      this.interval && clearInterval(this.interval);
     },
 
     methods: {
-      setFromUntil() {
+      makeFromUntil() {
         if (this.$route.query.from || this.$route.query.until) {
           this.from = this.$route.query.from;
           this.until = this.$route.query.until;
         } else {
           this.from = "-1h"
           this.until = "now"
+        }
+      },
+
+      makeInterval() {
+        this.interval && clearInterval(this.interval)
+
+        let refresh = this.$route.query.refresh;
+        if (refresh && refresh > 0) {
+          this.interval = setInterval(this.renderCharts, refresh * 1000)
         }
       },
 
@@ -77,9 +89,11 @@
           this.axios.get("/api/v1/metric/metric_offsprings/", {params: params})
             .then(response => {
               this.metrics = response.data.data.results
+              this.renderCharts();
             })
         } else {
           this.metrics = [{name: this.$route.query.name}];
+          this.renderCharts();
         }
       },
 
@@ -87,26 +101,25 @@
         this.metrics = [];
       },
 
-      refreshCharts() {
-        for (let i = 0; i < this.metrics.length; i++) {
-          this.$refs["metric-" + this.metrics[i].name + "-chart"][0].refresh();
-        }
+      renderCharts() {
+        this.$nextTick(() => {
+          for (let i = 0; i < this.metrics.length; i++) {
+            let params = {
+              target: this.metrics[i].name,
+              from: this.from,
+              until: this.until,
+            }
+            this.$refs["metric-" + this.metrics[i].name + "-chart"][0].render(params);
+          }
+        });
+      },
+
+      refresh() {
+        this.renderCharts();
       }
     }
   }
 </script>
 <style>
-  .metric-card {
-    margin-bottom: 0.875rem;
-  }
 
-  .metric-card .card-header {
-    font-size: 0.875rem;
-    padding: 0.45rem 0.95rem;
-  }
-
-  .metric-card .card-body {
-    padding: 0.45rem 0.55rem;
-    height: 220px;
-  }
 </style>

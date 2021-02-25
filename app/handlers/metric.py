@@ -1,5 +1,5 @@
 # Created by zhouwang on 2020/11/12.
-from ..lib import db
+from ..utils import db
 import configure
 
 
@@ -11,7 +11,14 @@ class Metric:
                 'term': {
                     'parent': ''
                 }
-            }
+            },
+            'sort': [
+                {
+                    'name': {
+                        'order': 'asc'
+                    }
+                }
+            ]
         }
         res = db.Elasticsearch().search(index=configure.elasticsearch['index'], doc_type='_doc', body=body)
         categories = []
@@ -27,7 +34,14 @@ class Metric:
                 'term': {
                     'parent': name
                 }
-            }
+            },
+            'sort': [
+                {
+                    'name': {
+                        'order': 'asc'
+                    }
+                }
+            ]
         }
         res = db.Elasticsearch().search(index=configure.elasticsearch['index'], doc_type='_doc', body=body)
         children = []

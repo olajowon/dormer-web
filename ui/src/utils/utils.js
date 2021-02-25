@@ -35,5 +35,27 @@ export function getCookie(name) {
    }
 }
 
+export function checkQueryFromUntil(query) {
+  if (!query.from && !query.until) {
+    let lsFrom = localStorage.getItem("from")
+    let lsUntil = localStorage.getItem("until")
+    if (lsFrom || lsUntil) {
+      query.from = lsFrom
+      query.until = lsUntil
+    } else {
+      query.from = "-1h"
+      query.until = "now"
+    }
+  }
+}
 
-
+export function checkQueryRefresh(query) {
+  if (!query.refresh) {
+    let lsRefresh = localStorage.getItem("refresh")
+    if (lsRefresh) {
+      query.refresh = lsRefresh
+    } else {
+      query.refresh = "0"
+    }
+  }
+}

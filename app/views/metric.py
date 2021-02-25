@@ -1,7 +1,7 @@
 # Created by zhouwang on 2020/11/7.
 from rest_framework.views import APIView
 from ..handlers.metric import Metric
-from ..lib.request import with_request
+from ..utils.request import with_request
 
 
 class MetricCategories(APIView):

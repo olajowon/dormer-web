@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: 'MetricTree',
+    name: 'Tree',
     data() {
       return {
         setting: {
@@ -65,9 +65,14 @@
       },
 
       treeNodeBeforeClick(treeId, treeNode) {
-        this.$router.push({
-          query: this.merge(this.$route.query, {name: treeNode.id, leaf: treeNode.leaf, keyword: undefined})
-        })
+        if (treeNode.id != this.$route.query.name) {
+          let toQuery = this.merge(this.$route.query, {name: treeNode.id, leaf: treeNode.leaf, keyword: undefined});
+          this.utils.checkQueryFromUntil(toQuery);
+          this.utils.checkQueryRefresh(toQuery);
+          this.$router.push({
+            query: toQuery
+          });
+        }
         return false
       },
 
@@ -110,6 +115,8 @@
             } else {
               this.tree.selectNode(treeNode);
             }
+          } else if (treeNode.id == queryMetric) {
+            this.tree.selectNode(treeNode);
           }
         }
       }

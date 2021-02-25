@@ -1,11 +1,11 @@
 # Created by zhouwang on 2020/12/19.
-from ..lib import db
+from ..utils import db
 
 
 class Common:
     def render(self, params):
         params = {
-            'target': params.get('target'),
+            'target': params.getlist('target'),
             'from': params.get('from'),
             'until': params.get('until'),
             'format': params.get('format') or 'json'

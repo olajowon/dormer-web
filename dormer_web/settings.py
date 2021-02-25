@@ -13,6 +13,8 @@ import os
 import configure
 import datetime
 from pathlib import Path
+import ldap
+from django_auth_ldap.config import LDAPSearch
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +53,26 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# LDAP
+AUTH_LDAP_SERVER_URI = configure.ldap['server_uri']
+AUTH_LDAP_BIND_DN = configure.ldap['bind_dn']
+AUTH_LDAP_BIND_PASSWORD = configure.ldap['bind_password']
+
+AUTH_LDAP_USER_SEARCH = LDAPSearch(configure.ldap['base_dn'],
+                                   ldap.SCOPE_SUBTREE,
+                                   '(%s=%%(user)s)' % configure.ldap['search_field'])
+
+AUTH_LDAP_USER_ATTR_MAP = {
+    'first_name': 'givenName',
+    'last_name': 'sn',
+    'email': 'mail',
+}
+
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -161,7 +183,8 @@ LOGGING = {
             'format': '%(levelname)s %(message)s'
         },
         'standard': {
-            'format': '[%(asctime)s][%(levelname)s][%(module)s:%(funcName)s][%(threadName)s:%(thread)d][%(name)s:%(lineno)d][%(message)s]\n'
+            'format': '[%(asctime)s][%(levelname)s][%(module)s:%(funcName)s]'
+                      '[%(threadName)s:%(thread)d][%(name)s:%(lineno)d][%(message)s]'
         }
     },
     'filters': {

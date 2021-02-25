@@ -1,35 +1,34 @@
 <template>
   <b-row v-if="this.$route.query.name" class="h-100">
     <b-col cols="12" sm="5" md="3">
-      <MetricTree/>
+      <Tree/>
       <div class="d-none d-sm-block metric-tree-border"></div>
     </b-col>
     <b-col cols="12" sm="7" md="9" class="h-100" style="overflow: auto">
-      <MetricDash/>
+      <Dash ref='metricDash'/>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  import MetricTree from '@/components/metric/MetricTree'
-  import MetricDash from '@/components/metric/MetricDash'
+  import Tree from '@/components/metric/Tree'
+  import Dash from '@/components/metric/Dash'
 
   export default {
     name: 'Metric',
     components: {
-      MetricTree: MetricTree,
-      MetricDash: MetricDash
+      Tree: Tree,
+      Dash: Dash
     },
     data() {
-      return {
-      }
+      return {}
     },
-    mounted() {
-
-    },
+    mounted() {},
 
     methods: {
-
+      refresh() {
+        this.$refs.metricDash.refresh();
+      }
     }
   }
 </script>

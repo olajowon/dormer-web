@@ -99,6 +99,90 @@ axios.interceptors.response.use(
   }
 );
 
+
+router.beforeEach((to, from, next) => {
+  let token = localStorage.getItem("token")
+  let username = localStorage.getItem("username")
+
+  if (to.name === "Login")
+  {
+    next()
+  }
+  else if (token == null || username == null)
+  {
+    localStorage.setItem("nextRoute", JSON.stringify({path: to.path, query: to.query}))
+    next({path: "/login/"})
+  }
+  else if (to.name == "Basic") {
+    next({path: "/user/" + username + "/"})
+  }
+  else if (to.name == "Metric" || to.name == "User" || to.name == "Organization")
+  {
+    let lsFrom = localStorage.getItem("from")
+    let lsUntil = localStorage.getItem("until")
+    let lsRefresh = localStorage.getItem("refresh")
+
+    let lsQuery = localStorage.getItem(to.path + ".query") || "{}"
+    if (from.path == to.path) {
+      let q = JSON.parse(JSON.stringify(to.query))
+      delete q["from"]
+      delete q["until"]
+      delete q["refresh"]
+      localStorage.setItem(to.path + ".query", JSON.stringify(q));
+    } else {
+      if (JSON.stringify(to.query) == "{}" && lsQuery != "{}") {
+        next({path: to.path, query: JSON.parse(lsQuery)})
+        return
+      }
+    }
+
+    if (JSON.stringify(to.query) != "{}") {
+      if (to.query.from != lsFrom || to.query.until != lsUntil) {
+        localStorage.setItem("from", to.query.from || "");
+        localStorage.setItem("until", to.query.until || "");
+      }
+      if (to.query.refresh != lsRefresh) {
+        localStorage.setItem("refresh", to.query.refresh || "0");
+      }
+
+      let q = to.query
+      if ((to.query.from || to.query.until) && to.query.refresh) {
+        next()
+      } else {
+        if (!to.query.from && !to.query.until) {
+          q = merge(q, lsFrom || lsUntil ? {from: lsFrom || "", until: lsUntil || ""} : {from: "-1h", until: "now"})
+        }
+
+        if (!to.query.refresh) {
+          q = merge(q, {refresh: lsRefresh || "0"})
+        }
+      }
+
+      next({path: to.path, query: q})
+    } else {
+      next()
+    }
+  }
+  else if (!from.name)
+  {
+     axios.post("/api/isauth/", {token: token}).then(response=>{
+       next()
+     })
+     .catch(error=>{
+       if (error.response.status == 400) {
+         localStorage.setItem("nextRoute", JSON.stringify({path: to.path, query: to.query}))
+         next({path: "/login/"})
+       }
+       next()
+     })
+  }
+  else
+  {
+    next()
+  };
+})
+
+
 /* eslint-disable no-new */
 const app = new Vue({
   el: '#app',

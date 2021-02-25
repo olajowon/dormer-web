@@ -38,3 +38,13 @@ tdengine = {
     'password': cf.get('tdengine', 'password'),
     'database': cf.get('tdengine', 'database')
 }
+
+ldap = {
+    'server_uri': cf.get('ldap', 'server_uri'),
+    'bind_dn': cf.get('ldap', 'bind_dn'),
+    'bind_password': cf.get('ldap', 'bind_password'),
+    'base_dn': cf.get('ldap', 'base_dn'),
+    'search_field': cf.get('ldap', 'search_field'),
+}
+
+extend = {sec['name']: dict(sec.items()) for k, sec in cf.items() if k.startswith('extend')}

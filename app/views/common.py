@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from ..handlers.common import Common
-from ..lib.request import with_request
+from ..utils.request import with_request
 
 
 class Render(APIView):

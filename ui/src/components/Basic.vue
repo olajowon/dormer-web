@@ -4,20 +4,43 @@
       <b-navbar-brand href="#">Dormer</b-navbar-brand>
 
       <div style="position: absolute; right: 90px; top: 13px">
-        <span v-if="fromDatetime || untilDatetime"
-               class="text-light"
-               style="display: inline-block; vertical-align: middle; font-size: 14px">
-          {{ fromDatetime }} ~ {{ untilDatetime }}
+        <span>
+          <span class="d-none d-sm-inline-block text-light" v-if="fromDatetime || untilDatetime"
+                 style="vertical-align: middle; font-size: 14px">
+            {{ fromDatetime }} ~ {{ untilDatetime }}
+          </span>
+          <b-button variant="info" size="sm" v-b-modal.datetime-modal>
+            <i class="fa fa-clock-o" style="font-size: 1rem"></i>
+          </b-button>
         </span>
-        <b-button variant="info" size="sm" v-b-modal.datetime-modal>
-          <i class="fa fa-clock-o fa-lg"></i>
-        </b-button>
+        <span style="margin-left: 10px">
+          <span class="d-none d-sm-inline-block text-light" v-if="refreshInterval"
+                 style="vertical-align: middle; font-size: 14px">
+            {{ refreshInterval }}
+          </span>
+          <b-button-group>
+            <b-dropdown right split variant="info" size="sm" @click="onRefreshBtnClick()">
+              <template #button-content  >
+                <i class="fa fa-refresh"></i>
+              </template>
+              <b-dropdown-item @click="changeRefreshInterval(0)">Off</b-dropdown-item>
+              <b-dropdown-item @click="changeRefreshInterval(30)">30s</b-dropdown-item>
+              <b-dropdown-item @click="changeRefreshInterval(60)">1m</b-dropdown-item>
+              <b-dropdown-item @click="changeRefreshInterval(300)">5m</b-dropdown-item>
+              <b-dropdown-item @click="changeRefreshInterval(600)">10m</b-dropdown-item>
+            </b-dropdown>
+          </b-button-group>
+        </span>
       </div>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
+          <b-nav-item :class="{active: $route.name=='User'}" :href="'/#/user/' + username + '/'">用户</b-nav-item>
+
+          <b-nav-item :class="{active: $route.name=='Organization'}" href="/#/organization/">组织</b-nav-item>
+
           <b-nav-item-dropdown text="指标">
             <b-dropdown-item v-for="(c, idx) in categories" :key="idx" :href="'/#/metric/?name=' + c.name + '&leaf=0'">
               {{ c.name }}
@@ -36,7 +59,7 @@
       </b-collapse>
     </b-navbar>
     <b-container fluid id="basic-container">
-      <router-view/>
+      <router-view ref="content"/>
     </b-container>
 
     <DatetimeModal/>
@@ -45,7 +68,7 @@
 </template>
 
 <script>
-  import DatetimeModal from '@/components/DatetimeModal'
+  import DatetimeModal from '@/components/common/DatetimeModal'
 
   export default {
     name: 'Basic',
@@ -54,7 +77,8 @@
     },
     data() {
       return {
-        categories: []
+        categories: [],
+        username: localStorage.getItem("username")
       }
     },
     computed: {
@@ -75,9 +99,24 @@
             return this.$route.query.until
           }
         }
+      },
+
+      refreshInterval: function () {
+        if (this.$route.query.refresh) {
+          if (this.$route.query.refresh == 0) {
+            return "Off"
+          } else if (this.$route.query.refresh < 60) {
+            return this.$route.query.refresh + "s"
+          } else {
+            return this.$route.query.refresh / 60 + "m"
+          }
+        } else {
+          return "Off"
+        }
       }
     },
     mounted() {
+      console.log(this.$route)
       this.axios.get("/api/v1/metric/metric_categories/",)
         .then(response => {
           this.categories = response.data.data.results;
@@ -90,6 +129,21 @@
         localStorage.removeItem("username");
         localStorage.removeItem("jwt");
         this.$router.push("/login/");
+      },
+
+      changeRefreshInterval(refresh) {
+        if (this.$route.query.refresh != refresh) {
+          let q = this.$route.query;
+          delete q["refresh"]
+          this.$router.push({
+            query: this.merge(q, {refresh: refresh})
+          })
+        }
+      },
+
+      onRefreshBtnClick() {
+        console.log('ddd', this.$refs)
+        this.$refs.content.refresh();
       }
     }
   }
@@ -109,5 +163,10 @@
 
   .navbar-dark .navbar-nav .nav-link {
     color: #fff !important;
+  }
+
+  .navbar-dark .navbar-nav .active .nav-link {
+    color: #ffc107 !important;
+    pointer-events:none
   }
 </style>

@@ -21,7 +21,7 @@ def with_request(auth=False, perm=None):
                     if isinstance(ret, HttpResponse):
                         resp = ret
                     else:
-                        resp = JsonResponse({'data': func(self, request, *args, **kwargs)})
+                        resp = JsonResponse({'data': ret})
                 except ParamError as e:
                     resp = JsonResponse({'msg': '参数无效', 'detail': str(e.message), 'error': e.error}, status=400)
                 except FormError as e:

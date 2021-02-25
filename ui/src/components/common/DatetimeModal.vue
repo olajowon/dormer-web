@@ -87,7 +87,7 @@
 
       onSubmitClick: function () {
         if (this.from && this.until) {
-          this.changeQueryFormUntil(
+          this.changeQueryFromUntil(
             new Date(this.from).getTime() / 1000,
             new Date(this.until).getTime() / 1000,
           )
@@ -96,11 +96,11 @@
       },
 
       onRelativeClick(_from, _until) {
-        this.changeQueryFormUntil(_from, _until)
+        this.changeQueryFromUntil(_from, _until)
         this.$bvModal.hide('datetime-modal')
       },
 
-      changeQueryFormUntil(_from, _until) {
+      changeQueryFromUntil(_from, _until) {
         this.$router.push({
           query: this.merge(this.$route.query, {from: _from, until: _until})
         })
