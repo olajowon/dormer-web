@@ -293,38 +293,38 @@
 </script>
 <style>
   .screen-panel {
-    width: 100%;
-    overflow: auto
+    width: 100% !important;
+    overflow: auto !important;
   }
 
   .screen-panel-height {
-    height: calc(100% - 30px);
+    height: calc(100% - 30px) !important;
   }
 
   .screen-panel-position {
-    position: relative;
-    top: -15px;
+    position: relative !important;
+    top: -15px !important;
   }
 
   .screen-card {
-    margin-bottom: 0.875rem;
-    height: 100%;
-    width: 100%;
+    margin-bottom: 0.875rem !important;
+    height: 100% !important;
+    width: 100% !important;
   }
 
   .screen-card .card-body {
-    height: 100%;
-    width: 100%;
+    height: 100% !important;
+    width: 100% !important;
   }
 
   .screen-btn-group {
-    padding-top: 2px;
+    padding-top: 2px !important;
   }
 
   .save-screen-alert {
-    animation: spinner-grow 1.5s ease-out infinite;
-    padding-top: 0.16rem;
-    padding-bottom: 0.14rem;
+    animation: spinner-grow 1.5s ease-out infinite !important;
+    padding-top: 0.16rem !important;
+    padding-bottom: 0.14rem !important;
   }
 
 </style>

@@ -28,58 +28,58 @@ export default {
   }
 
   .btn-group-xs>.btn, .btn-xs {
-    padding: 0.15rem 0.4rem;
-    font-size: 0.79rem;
-    line-height: 1.5;
-    border-radius: 0.2rem;
+    padding: 0.15rem 0.4rem !important;
+    font-size: 0.79rem !important;
+    line-height: 1.5 !important;
+    border-radius: 0.2rem !important;
     vertical-align: middle !important;
   }
 
   .btn-mini, .btn-group-mini > .btn {
-    padding: 0.12rem 0.3rem;
-    font-size: 0.7rem;
-    line-height: 1.25;
-    border-radius: 0.2rem;
+    padding: 0.12rem 0.3rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.25 !important;
+    border-radius: 0.2rem !important;
   }
 
   .card-sm .card-header {
-    font-size: 0.875rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem !important;
+    padding: 0.4rem 0.8rem !important;
   }
 
   .card-sm .card-body {
-    padding: 0.4rem 0.45rem;
+    padding: 0.4rem 0.45rem !important;
   }
 
   .card-sm button.dropdown-toggle {
-    position: fixed;
-    right: 8px;
-    top: 7px;
-    padding: 0px 5px;
+    position: fixed !important;
+    right: 8px !important;
+    top: 7px !important;
+    padding: 0px 5px !important;
   }
 
   .card-sm .dropdown-menu {
-    font-size: 0.815rem;
+    font-size: 0.815rem !important;
   }
 
   .card-sm .dropdown-menu {
-    min-width: inherit;
+    min-width: inherit !important;
   }
 
   .metric-card {
-    margin-bottom: 0.875rem;
+    margin-bottom: 0.875rem !important;
   }
 
   .metric-card .card-body {
-    height: 220px;
+    height: 220px !important;
   }
 
   .btn-warning, .btn-warning:focus, .btn-warning.focus, .btn-warning:hover, .btn-warning.disabled, .btn-warning:disabled {
-    color: #fff;
+    color: #fff !important;
   }
 
   .alert {
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
   }
 
   @-webkit-keyframes spin {

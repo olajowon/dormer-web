@@ -150,9 +150,9 @@
   }
 
   #metricTree.ztree li a.curSelectedNode {
-    background-color: unset;
-    border: unset;
-    color: #19a2b8;
-    padding-top: 1px
+    background-color: unset !important;
+    border: unset !important;
+    color: #19a2b8 !important;
+    padding-top: 1px !important;
   }
 </style>

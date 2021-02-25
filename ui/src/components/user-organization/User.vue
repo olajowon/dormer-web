@@ -42,9 +42,10 @@
 </script>
 <style>
   .user-tree-border {
-    height: 100%;
-    border-right: 1px solid rgba(0, 0, 0, 0.125);
-    position: absolute; right: 0px;
-    top: 0px
+    height: 100% !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.125) !important;
+    position: absolute !important;
+    right: 0px !important;
+    top: 0px !important;
   }
 </style>

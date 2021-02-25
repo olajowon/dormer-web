@@ -151,14 +151,14 @@
 
 <style>
   #nav-collapse > ul > li > a {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
   }
 
   #basic-container {
-    margin-top: 15px;
-    height: calc(100% - 76px);
-    overflow: auto;
+    margin-top: 15px !important;
+    height: calc(100% - 76px) !important;
+    overflow: auto !important;
   }
 
   .navbar-dark .navbar-nav .nav-link {
@@ -167,6 +167,6 @@
 
   .navbar-dark .navbar-nav .active .nav-link {
     color: #ffc107 !important;
-    pointer-events:none
+    pointer-events: none !important;
   }
 </style>
