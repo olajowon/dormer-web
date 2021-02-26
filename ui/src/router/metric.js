@@ -5,7 +5,7 @@
 import Metric from '@/components/metric/Metric'
 
 export default {
-  path: '/metric/',
+  path: '/metric/:category/',
   name: 'Metric',
   component: Metric
 }

@@ -28,29 +28,22 @@
             onAsyncSuccess: this.treeNodeOnAsyncSuccess,
           }
         },
-        tree: null
+        tree: null,
       }
     },
 
     watch: {
       "$route.query": function (n, o) {
         if (n.name != o.name) {
-          if (n.name.split(".")[0] == o.name.split(".")[0]) {
-            let node = this.tree.getNodeByParam('id', n.name)
-            if (node) {
-              this.tree.selectNode(node);
-            }
-          } else {
-            this.metricCategory = n.name.split(".")[0];
-            this.treeInit();
+          let node = this.tree.getNodeByParam('id', n.name)
+          if (node) {
+            this.tree.selectNode(node);
           }
         }
       }
     },
 
     mounted() {
-      let metricName = this.$route.query.name;
-      this.metricCategory = metricName.split(".")[0];
       this.treeInit();
     },
 
@@ -80,7 +73,7 @@
         let data = []
         if (resp.data) {
           for (let i = 0; i < resp.data.results.length; i++) {
-            if (!parentNode && resp.data.results[i].name != this.metricCategory) {
+            if (!parentNode && resp.data.results[i].name != this.category) {
               continue
             }
 
@@ -98,8 +91,7 @@
       },
 
       treeNodeOnAsyncSuccess(event, treeId, treeNode) {
-        console.log(treeNode)
-        let queryMetric = this.$route.query.name
+        let queryMetric = this.$route.query.name || ""
         if (!treeNode) {
           let node = this.tree.getNodeByParam('pId', null)
           this.tree.expandNode(node, true, false, true, true);
@@ -120,7 +112,8 @@
           }
         }
       }
-    }
+    },
+    props: ["category"]
   }
 </script>
 <style>

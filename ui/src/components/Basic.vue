@@ -41,8 +41,11 @@
 
           <b-nav-item :class="{active: $route.name=='Organization'}" href="/#/organization/">组织</b-nav-item>
 
-          <b-nav-item-dropdown text="指标">
-            <b-dropdown-item v-for="(c, idx) in categories" :key="idx" :href="'/#/metric/?name=' + c.name + '&leaf=0'">
+          <b-nav-item-dropdown :class="{active: $route.name=='Metric'}" text="指标">
+            <b-dropdown-item v-for="(c, idx) in categories"
+                             :class="{active: $route.params.category==c.name}"
+                             :key="idx"
+                             :href="'/#/metric/' + c.name + '/'">
               {{ c.name }}
             </b-dropdown-item>
           </b-nav-item-dropdown>
@@ -164,8 +167,17 @@
     color: #fff !important;
   }
 
-  .navbar-dark .navbar-nav .active .nav-link {
+  .navbar-dark .navbar-nav .active > .nav-link {
+    color: #ffc107 !important;
+  }
+
+  .navbar-dark .navbar-nav .active > .nav-link:not(.dropdown-toggle) {
+    pointer-events: none !important;
+  }
+
+  .navbar-dark .navbar-nav .active > .dropdown-item {
     color: #ffc107 !important;
     pointer-events: none !important;
   }
+
 </style>

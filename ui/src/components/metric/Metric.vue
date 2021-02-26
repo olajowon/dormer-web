@@ -1,7 +1,7 @@
 <template>
-  <b-row v-if="this.$route.query.name" class="h-100">
+  <b-row :key="this.$route.params.category" class="h-100">
     <b-col cols="12" sm="5" md="3">
-      <Tree/>
+      <Tree v-bind:category="this.$route.params.category"/>
       <div class="d-none d-sm-block metric-tree-border"></div>
     </b-col>
     <b-col cols="12" sm="7" md="9" class="h-100" style="overflow: auto">
