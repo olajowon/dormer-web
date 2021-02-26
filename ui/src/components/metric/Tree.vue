@@ -124,7 +124,8 @@
   }
 
   #metricTree.ztree * {
-    font-size: 13px;
+    font-size: 13px !important;
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
   }
 
   #metricTree.ztree li span.button.folder_ico_close:before {

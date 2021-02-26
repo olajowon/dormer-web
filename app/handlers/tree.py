@@ -5,6 +5,7 @@ from django.contrib.auth import models as auth_models
 from ..utils.exception import ParamError, ForbiddenError, NotFoundError
 from ..utils import tree as tree_utils
 from .. import serializers
+import re
 
 
 class Tree:
@@ -34,9 +35,10 @@ class Tree:
     def clean_create_node_data(self, data):
         path = data.get('path')
         tp = data.get('type')
+        text = path.split('.')[-1]
 
-        if not path or path.find('.') == -1:
-            raise ParamError('path', '节点路径格式无效')
+        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]*$', text):
+            raise ParamError('path', '节点路径格式无效，节点名称由[中文、英文、数字、_、-]组成')
 
         parent_path = '.'.join(path.split('.')[:-1])
         parent_mdl = models.TreeNode.objects.filter(path=parent_path, type='branch').first()
@@ -56,7 +58,7 @@ class Tree:
 
         return {
             'path': path,
-            'text': path.split('.')[-1],
+            'text': text,
             'type': tp,
             'space': parent_mdl.space,
         }
@@ -99,8 +101,9 @@ class Tree:
             raise ForbiddenError('没有修改权限')
 
         path = data.get('path')
-        if not path or path.find('.') == -1:
-            raise ParamError('path', '节点路径格式无效')
+        text = path.split('.')[-1]
+        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]*$', text):
+            raise ParamError('path', '节点路径格式无效，节点名称由[中文、英文、数字、_、-]组成')
 
         if models.TreeNode.objects.filter(path=path).exclude(id=update_mdl.id).count():
             raise ParamError('path', '节点[%s]已存在' % path)
@@ -117,7 +120,7 @@ class Tree:
                     raise ForbiddenError('没有[%s]权限' % parent_mdl.path)
         return {
             'path': path,
-            'text': path.split('.')[-1]
+            'text': text
         }
 
     def delete_node(self, node):
@@ -244,12 +247,12 @@ class Tree:
                         ).order_by('path')
                     elif path.split('.')[0] == root:
                         node_qs = models.TreeNode.objects.filter(
-                            path__regex='^%s$' % '.'.join([path, '[a-zA-Z0-9_]*']),
+                            path__regex='^%s$' % '.'.join([path, '[-\u4e00-\u9fa5_a-zA-Z0-9]*']),
                             space=space
                         ).order_by('path')
         elif space == 'organization':
             node_qs = models.TreeNode.objects.filter(
-                path__regex='^%s$' % '.'.join([path, '[a-zA-Z0-9_]*']),
+                path__regex='^%s$' % '.'.join([path, '[-\u4e00-\u9fa5_a-zA-Z0-9]*']),
                 space=space
             ).order_by('path')
 

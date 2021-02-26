@@ -109,7 +109,7 @@
     watch: {
       "$route.query": function (n, o) {
         if (n.path != o.path) {
-          let node = this.tree.getNodeByParam('path', n.path)
+          let node = this.tree.getNodeByParam('path', n.path);
           if (node) {
             this.tree.selectNode(node);
             this.selectedTreeNode = node;
@@ -170,7 +170,7 @@
       },
 
       treeNodeOnAsyncSuccess(event, treeId, treeNode) {
-        let queryPath = this.$route.query.path || ""
+        let queryPath = this.$route.query.path || "";
         if (!treeNode) {
           let node = this.tree.getNodeByParam('pId', null)
           this.tree.expandNode(node, true, false, true, true);
@@ -272,7 +272,8 @@
   }
 
   #userOrgTree.ztree * {
-    font-size: 13px;
+    font-size: 13px !important;
+    font-family: Verdana, Arial, Helvetica, sans-serif !important;
   }
 
   #userOrgTree.ztree li span.button.branch_ico_close:before {
