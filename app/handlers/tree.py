@@ -37,7 +37,7 @@ class Tree:
         tp = data.get('type')
         text = path.split('.')[-1]
 
-        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]*$', text):
+        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]+$', text):
             raise ParamError('path', '节点路径格式无效，节点名称由[中文、英文、数字、_、-]组成')
 
         parent_path = '.'.join(path.split('.')[:-1])
@@ -102,7 +102,7 @@ class Tree:
 
         path = data.get('path')
         text = path.split('.')[-1]
-        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]*$', text):
+        if not path or path.find('.') == -1 or not re.match('^[-\u4e00-\u9fa5_a-zA-Z0-9]+$', text):
             raise ParamError('path', '节点路径格式无效，节点名称由[中文、英文、数字、_、-]组成')
 
         if models.TreeNode.objects.filter(path=path).exclude(id=update_mdl.id).count():
