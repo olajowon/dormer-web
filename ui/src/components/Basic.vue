@@ -142,7 +142,6 @@
       },
 
       onRefreshBtnClick() {
-        console.log('ddd', this.$refs)
         this.$refs.content.refresh();
       }
     }
