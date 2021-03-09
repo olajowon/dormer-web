@@ -41,7 +41,8 @@ class Metric:
                         'order': 'asc'
                     }
                 }
-            ]
+            ],
+            'size': 500
         }
         res = db.Elasticsearch().search(index=configure.elasticsearch['index'], doc_type='_doc', body=body)
         children = []
@@ -65,7 +66,8 @@ class Metric:
                         }
                     ]
                 }
-            }
+            },
+            'size': 20
         }
         if leaf in (0, 1):
             term_leaf = {'term': {'leaf': {'value': leaf}}}
