@@ -1,10 +1,10 @@
 <template>
   <b-row :key="this.$route.params.category" class="h-100">
-    <b-col cols="12" sm="5" md="3">
+    <b-col cols="12" sm="5" md="3" style="max-height: 100%">
       <Tree v-bind:category="this.$route.params.category"/>
       <div class="d-none d-sm-block metric-tree-border"></div>
     </b-col>
-    <b-col cols="12" sm="7" md="9" class="h-100" style="overflow: auto">
+    <b-col cols="12" sm="7" md="9" style="max-height: 100%">
       <Dash ref='metricDash'/>
     </b-col>
   </b-row>

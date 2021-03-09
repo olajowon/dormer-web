@@ -1,5 +1,7 @@
 <template>
-  <ul id="metricTree" class="ztree"></ul>
+  <div class="h-100" style="overflow: auto">
+    <ul id="metricTree" class="ztree"></ul>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-100">
     <div v-if="role.owner" class="tree-options">
       <b-button
         :disabled="!selectedTreeNode || selectedTreeNode.type != 'branch'"
@@ -30,8 +30,9 @@
       </b-button>
     </div>
 
-    <ul id="userOrgTree" class="ztree"></ul>
-
+    <div style="height: calc(100% - 30px); overflow: auto">
+      <ul id="userOrgTree" class="ztree"></ul>
+    </div>
 
     <TreeNodeCreateModal
       v-if="createTreeNodeModalShow"

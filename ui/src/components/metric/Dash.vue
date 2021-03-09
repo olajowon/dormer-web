@@ -1,5 +1,5 @@
 <template>
-  <b-row>
+  <b-row class="metric-dash">
     <b-col v-for="metric, idx in metrics" :key="metric.name" cols="12" sm="12" md="6">
       <b-card
         :header="metric.name"
@@ -121,5 +121,8 @@
   }
 </script>
 <style>
-
+  .metric-dash {
+    height: 100%;
+    overflow: auto
+  }
 </style>
