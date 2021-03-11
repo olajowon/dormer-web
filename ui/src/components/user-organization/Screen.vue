@@ -39,7 +39,7 @@
         :is-mirrored="false"
         :autoSize="true"
         :vertical-compact="true"
-        :margin="[15, 15]"
+        :margin="[10, 10]"
         :use-css-transforms="true"
       >
         <grid-item v-for="card, idx in settings.cards"
@@ -295,6 +295,8 @@
   .screen-panel {
     width: 100% !important;
     overflow: auto !important;
+    padding-right: 5px;
+    padding-left: 5px;
   }
 
   .screen-panel-height {
@@ -307,7 +309,7 @@
   }
 
   .screen-card {
-    margin-bottom: 0.875rem !important;
+    margin-bottom: 1rem !important;
     height: 100% !important;
     width: 100% !important;
   }
@@ -323,8 +325,7 @@
 
   .save-screen-alert {
     animation: spinner-grow 1.5s ease-out infinite !important;
-    padding-top: 0.16rem !important;
-    padding-bottom: 0.14rem !important;
+
   }
 
 </style>

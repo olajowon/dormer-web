@@ -1,14 +1,14 @@
 <template>
   <b-row class="metric-dash">
-    <b-col v-for="metric, idx in metrics" :key="metric.name" cols="12" sm="12" md="6">
-      <b-card
-        :header="metric.name"
-        class="card-sm metric-card"
-      >
-        <Chart
-          :ref="'metric-' + metric.name + '-chart'"/>
-      </b-card>
-    </b-col>
+      <b-col v-for="metric, idx in metrics" :key="metric.name" cols="12" sm="12" md="6">
+        <b-card
+          :header="metric.name"
+          class="card-sm metric-card"
+        >
+          <Chart
+            :ref="'metric-' + metric.name + '-chart'"/>
+        </b-card>
+      </b-col>
   </b-row>
 </template>
 
@@ -122,7 +122,14 @@
 </script>
 <style>
   .metric-dash {
-    height: 100%;
-    overflow: auto
+    height: 100% !important;
+    overflow: auto !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important
+  }
+
+  .metric-dash > div {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
   }
 </style>

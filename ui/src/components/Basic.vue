@@ -3,25 +3,25 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">Dormer</b-navbar-brand>
 
-      <div style="position: absolute; right: 90px; top: 13px">
+      <div style="position: absolute; right: 90px; top: 12px">
         <span>
           <span class="d-none d-sm-inline-block text-light" v-if="fromDatetime || untilDatetime"
-                 style="vertical-align: middle; font-size: 14px">
+                 style="vertical-align: middle; font-size: 1rem">
             {{ fromDatetime }} ~ {{ untilDatetime }}
           </span>
-          <b-button variant="info" size="sm" v-b-modal.datetime-modal>
-            <i class="fa fa-clock-o" style="font-size: 1rem"></i>
+          <b-button variant="info" size="sm" v-b-modal.datetime-modal style="padding-top: 0.395rem; padding-bottom: 0.245rem;">
+            <i class="fa fa-clock-o" style="font-size: 1.125rem"></i>
           </b-button>
         </span>
         <span style="margin-left: 10px">
           <span class="d-none d-sm-inline-block text-light" v-if="refreshInterval"
-                 style="vertical-align: middle; font-size: 14px">
+                 style="vertical-align: middle; font-size: 1rem">
             {{ refreshInterval }}
           </span>
           <b-button-group>
-            <b-dropdown right split variant="info" size="sm" @click="onRefreshBtnClick()">
+            <b-dropdown id="nav-refresh-dropdown" right split variant="info" size="sm" @click="onRefreshBtnClick()">
               <template #button-content  >
-                <i class="fa fa-refresh"></i>
+                <i class="fa fa-refresh" style="font-size: 0.95rem"></i>
               </template>
               <b-dropdown-item @click="changeRefreshInterval(0)">Off</b-dropdown-item>
               <b-dropdown-item @click="changeRefreshInterval(30)">30s</b-dropdown-item>
@@ -41,7 +41,7 @@
 
           <b-nav-item :class="{active: $route.name=='Organization'}" href="/#/organization/">组织</b-nav-item>
 
-          <b-nav-item-dropdown :class="{active: $route.name=='Metric'}" text="指标">
+          <b-nav-item-dropdown id="nav-metric-dropdown" :class="{active: $route.name=='Metric'}" text="指标">
             <b-dropdown-item v-for="(c, idx) in categories"
                              :class="{active: $route.params.category==c.name}"
                              :key="idx"
@@ -163,6 +163,10 @@
     overflow: auto !important;
   }
 
+  .navbar {
+    font-size: 1.115rem !important;
+  }
+
   .navbar-dark .navbar-nav .nav-link {
     color: #fff !important;
   }
@@ -180,4 +184,11 @@
     pointer-events: none !important;
   }
 
+  #nav-metric-dropdown .dropdown-item {
+    font-size: 1.125rem !important;
+  }
+
+  #nav-refresh-dropdown .dropdown-toggle {
+    font-size: 0.96rem !important;
+  }
 </style>

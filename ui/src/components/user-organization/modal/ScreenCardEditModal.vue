@@ -13,7 +13,7 @@
             :ref="'screen-card-edit-chart'"/>
         </b-card>
         <b-card no-body>
-          <b-tabs card small>
+          <b-tabs card>
             <b-tab title="设置" active title-link-class="text-secondary">
               <b-card-text>
                 <b-form>
@@ -23,7 +23,6 @@
                     <b-form-input
                       v-model="form.title"
                       type="text"
-                      size="sm"
                       required
                     ></b-form-input>
                   </b-form-group>
@@ -42,7 +41,6 @@
                       <b-form-input
                         v-model="target.target"
                         type="text"
-                        size="sm"
                         required
                         @change="onFormTargetsChange"
                       ></b-form-input>
@@ -63,7 +61,7 @@
     </b-row>
     <template #modal-footer>
       <div class="w-100">
-        <b-button variant="info" size="sm" class="float-right" @click="onSubmitClick()">
+        <b-button variant="info" class="float-right" @click="onSubmitClick()">
           确定
         </b-button>
       </div>
