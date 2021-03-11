@@ -12,7 +12,7 @@ export default {
 
 <style>
   html {
-    font-size: 14px;
+    font-size: 14px !important;
   }
 
   #app {
@@ -67,11 +67,11 @@ export default {
   }
 
   .metric-card {
-    margin-bottom: 10px !important;
+    margin-bottom: 15px !important;
   }
 
   .metric-card .card-body {
-    height: 200px !important;
+    height: 180px !important;
   }
 
   .btn-warning, .btn-warning:focus, .btn-warning.focus, .btn-warning:hover, .btn-warning.disabled, .btn-warning:disabled {

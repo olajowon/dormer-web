@@ -137,7 +137,7 @@
           },
           legend: {
             itemStyle: {
-              fontWeight: "400"
+              fontWeight: 400,
             },
             align: "left",
           },
